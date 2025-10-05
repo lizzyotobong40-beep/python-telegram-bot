@@ -1,0 +1,31 @@
+import telebot
+import requests
+import numpy as np
+
+# Telegram Bot Token
+TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+
+# Aviator Game API (if available)
+AVIATOR_API = 'https://api.aviator.game'
+
+bot = telebot.TeleBot(TOKEN)
+
+# Predict flight multiplier
+def predict_multiplier():
+    # Implement prediction algorithm here
+    # For demonstration purposes, return a random multiplier
+    return np.random.uniform(1.0, 10.0)
+
+# Handle start command
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, 'Welcome to the Aviator Predictor Bot!')
+
+# Handle predict command
+@bot.message_handler(commands=['predict'])
+def predict(message):
+    multiplier = predict_multiplier()
+    bot.send_message(message.chat.id, f'Predicted Multiplier: {multiplier:.2f}')
+
+# Run the bot
+bot.polling()
